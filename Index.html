@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Letter</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f7f7f7;
+            overflow: hidden; /* Prevent scrolling */
+            margin: 0;
+        }
+        .envelope-container {
+            position: relative;
+            width: 400px; /* Increased size */
+            height: 300px; /* Increased size */
+            background-color: #f9e79f;
+            border: 2px solid #333;
+            border-radius: 20px; /* Increased size */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            padding: 30px; /* Increased size */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .triangle {
+            position: absolute;
+            top: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 224px solid transparent; /* Increased size */
+            border-right: 224px solid transparent; /* Increased size */
+            border-top: 100px solid #fbbd6d; /* Increased size */
+            border-bottom: none;
+        }
+        .letter {
+            display: none;
+            position: absolute;
+            top: calc(50% + 40px); /* Adjusted for triangle height and padding */
+            left: 50%;
+            width: 300px; /* Increased size */
+            height: 500px;
+            transform: translate(-50%, -50%);
+            padding: 30px; /* Increased size */
+            background-color: #fff;
+            border: 2px solid #333;
+            border-radius: 15px; /* Increased size */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .open {
+            display: block;
+        }
+        .options {
+            display: flex;
+            justify-content: space-between; /* Distribute options evenly */
+            align-items: center;
+            width: 100%;
+        }
+        .options span {
+            padding: 5px 10px;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+        #yesOption {
+            position: absolute;
+            left: 30px; 
+            bottom: 100px;/* Adjust as needed */
+        }
+        #noOption {
+            position: absolute;
+            right: 30px;
+            bottom: 100px;
+        }
+        h4 {
+            margin: 0;
+            position: absolute;
+            bottom: 350px; /* Adjust as needed */
+            right: 10px; /* Adjust as needed */
+        }
+        h3 {
+            margin: 0;
+            position: absolute;
+            bottom: 170px; /* Adjust as needed */ /* Adjust as needed */
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="envelope-container" onclick="openLetter(event)">
+        <p>This is for you</p>
+        <div class="triangle"></div>
+        <div class="letter">
+            <p>It's February and I'm still in love with you,</p>
+            <p>and you will always be my favorite person.</p>
+            <p>No matter what happens, I'll be there for you.</p>
+            <h4><i>~Mrs.Dhanshree Farith</i></h4>
+            <h3>Will you be my Valentine?</h3>
+            <div class="options">
+                <span id="yesOption" onclick="chooseOption('Yes')">Yes</span>
+                <span id="noOption" onclick="chooseOption('No')">No</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openLetter(event) {
+            var letterContainer = document.querySelector('.letter');
+            if (!letterContainer.classList.contains('open')) {
+                letterContainer.classList.add('open');
+                event.stopPropagation(); // Prevent the event from propagating to parent elements
+            }
+        }
+
+        function chooseOption(option) {
+            if (option === 'No') {
+                var noOption = document.querySelector('#noOption');
+                var envelopeContainer = document.querySelector('.envelope-container');
+                var envelopeRect = envelopeContainer.getBoundingClientRect();
+                var envelopeWidth = envelopeRect.width;
+                var envelopeHeight = envelopeRect.height;
+                var radius = 40; // Adjust as needed
+
+                var randomAngle = Math.random() * 2 * Math.PI; // Random angle in radians
+                var randomDistance = Math.random() * radius;
+
+                var randomLeft = envelopeRect.left + envelopeWidth / 2 + randomDistance * Math.cos(randomAngle) - noOption.offsetWidth / 2;
+                var randomTop = envelopeRect.top + envelopeHeight / 2 + randomDistance * Math.sin(randomAngle) - noOption.offsetHeight / 2;
+
+                noOption.style.left = randomLeft + 'px';
+                noOption.style.top = randomTop + 'px';
+            } else if (option === 'Yes') {
+                var yesOption = document.querySelector('#yesOption');
+                Swal.fire("Your wife says", "I love youuuuuuuuuuuuuu peach.", "success");
+            }
+        }
+    </script>
+</body>
+</html>
